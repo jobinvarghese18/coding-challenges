@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.list-item {
+  cursor: pointer;
+  text-align: start;
+}
