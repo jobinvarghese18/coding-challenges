@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import "./App.css";
 
 interface Entry {
@@ -13,25 +13,34 @@ interface Props {
   depth: number;
 }
 const Entry = ({ entry, depth }: Props) => {
-  console.log(entry.name, "name");
   const [expanded, setIsExpanded] = useState(false);
+
+  const handleExpand = (
+    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsExpanded(!expanded);
+  };
+
   return (
-    <div onClick={() => setIsExpanded(!expanded)}>
-      <div className="list-item" style={{ paddingLeft: `${depth * 20}px` }}>
-        {">"} {entry.name}
+    <button onClick={(event) => handleExpand(event)}>
+      <div className="list-item" style={{ paddingLeft: `${20}px` }}>
+        {entry?.children && ">"} {entry.name}
       </div>
-      {entry.children?.map((entry) => {
-        return (
-          <div key={entry.id}>
-            {entry && <Entry entry={entry} depth={depth + 1} />}
-          </div>
-        );
-      })}
-    </div>
+      {expanded &&
+        entry.children?.map((entry) => {
+          return (
+            <div className="list-item" key={entry.id}>
+              {entry && <Entry entry={entry} depth={depth + 1} />}
+            </div>
+          );
+        })}
+    </button>
   );
 };
 function App() {
-  const [data] = useState<Array<Entry>>([
+  const data: Array<Entry> = [
     {
       id: 1,
       name: "nodemoduels",
@@ -70,10 +79,10 @@ function App() {
       name: "index.css",
       isOpen: false,
     },
-  ]);
+  ];
 
   return (
-    <div>
+    <div className="container">
       {data.map((item) => {
         return <Entry key={item.id} entry={item} depth={0} />;
       })}

@@ -41,7 +41,13 @@
   color: #888;
 }
 
+.container {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
 .list-item {
   cursor: pointer;
   text-align: start;
+  min-width: 100px;
 }
