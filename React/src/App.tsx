@@ -1,12 +1,32 @@
-import ProgressBar from "../src/challenges/ProgressBar/ProgressBar";
+import { Link, RouterProvider, createBrowserRouter } from "react-router-dom";
+import Stock from "./challenges/1-trading-application/pages/Stock";
+import Stocks from "./challenges/1-trading-application/pages/Stocks";
 import "./App.css";
 
+const Home = () => {
+  return <Link to="/stocks">Stocks</Link>;
+};
+
 function App() {
+  const routes = [
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "stocks",
+      element: <Stocks />,
+    },
+    {
+      path: "stocks/:id",
+      element: <Stock />,
+    },
+  ];
+  const route = createBrowserRouter(routes);
   return (
-    <div className="app-container">
-      <ProgressBar count={50} />
-      <ProgressBar count={75} />
-      <ProgressBar count={10} />
+    <div>
+      <RouterProvider router={route} />
+      Hello world
     </div>
   );
 }
