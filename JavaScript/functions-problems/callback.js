@@ -1,8 +1,9 @@
-const hellworld = (name) => {
-  return `Hello ${name}`;
+const greeting = (name) => {
+  return `Hell ${name}, welcome.`;
 };
 
-const myFunction = (fn, name) => {
+const myFunc = (fn, name) => {
   return fn(name);
 };
-console.log(myFunction(hellworld, "John"));
+
+console.log(myFunc(greeting, "Sam"));
